@@ -4,8 +4,6 @@ import com.example.loginplsql.exception.UserNotFoundException;
 import com.example.loginplsql.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.util.List;
 @RestController
 public class UserController {
@@ -26,6 +24,11 @@ public class UserController {
     User getUser(@PathVariable int id) {
         return this.daoUser.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id));
+    }
+
+    @GetMapping("/getUser/{username}")
+    User getUserByUsername(@PathVariable String username) {
+        return this.daoUser.findByUsername(username);
     }
 
     @DeleteMapping("/delete-user/{id}")

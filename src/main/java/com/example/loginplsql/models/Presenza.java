@@ -9,13 +9,13 @@ import java.time.Instant;
 
 @Entity
 @Table(name = "PRESENZE")
-public class Presenze {
+public class Presenza {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_PRESENZE", nullable = false)
     private Long id;
 
-    @Column(name = "\"DATA\"")
+    @Column(name = "DATA")
     private Instant data;
 
     @ManyToOne(fetch = FetchType.LAZY)
