@@ -1,22 +1,29 @@
-package com.example.loginplsql.models;
+package com.example.loginplsql.controllers;
 
 import com.example.loginplsql.Util.Util;
 import com.example.loginplsql.daos.PresenzaRepository;
 import com.example.loginplsql.daos.UserRepository;
+import com.example.loginplsql.models.Presenza;
+import com.example.loginplsql.models.User;
+import com.example.loginplsql.services.TelegramBot;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-public class TelegramBot extends TelegramLongPollingBot {
+@Controller
+public class TelegramaBotController extends TelegramLongPollingBot {
     @Autowired
     UserRepository daoUser;
 
     @Autowired
     PresenzaRepository daoPresenza;
+    @Autowired
+    TelegramBot telegramBot;
 
     private final String DESC = "/d";
     private final String ENTRY_M = "/entry_m";
@@ -83,4 +90,5 @@ public class TelegramBot extends TelegramLongPollingBot {
     private boolean elaborateMessage(String messageText, String code) {
         return messageText.split(code) != null && messageText.length() > 0;
     }
+
 }

@@ -12,8 +12,8 @@ import java.time.Instant;
 public class Presenza {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_PRESENZE", nullable = false)
-    private Long id;
+    @Column(name = "ID_PRESENZE", nullable = true)
+    private Integer id;
 
     @Column(name = "DATA")
     private Instant data;
@@ -42,11 +42,11 @@ public class Presenza {
     @Column(name = "RIMBORSO_SPESE")
     private Long rimborsoSpese;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

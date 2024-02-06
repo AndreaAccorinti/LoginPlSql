@@ -8,7 +8,10 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String username, password, name, email;
+    private String username;
+    private String password;
+    private String name;
+    private String email;
 
     public String getUsername() {
         return username;
