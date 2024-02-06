@@ -55,7 +55,7 @@ public class TelegramaBotController extends TelegramLongPollingBot {
             if (response != null && response.length() > 0 && username != null && username.length() > 0) {
                 User user = this.daoUser.findByUsername(username);
                 if (user != null) {
-                    presenza.setId(user.getId().longValue());
+                    presenza.setId(user.getId().intValue());
                     String [] descrizione = response.split(this.DESC);
                     if (descrizione != null && descrizione.length > 0) {
                         presenza.setDescrizione(descrizione[1]);

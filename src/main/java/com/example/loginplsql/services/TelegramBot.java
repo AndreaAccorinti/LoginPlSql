@@ -56,7 +56,6 @@ public class TelegramBot extends TelegramLongPollingBot {
                     if (descrizione != null && descrizione.length > 0) {
                         presenza.setDescrizione(descrizione[1]);
                     }
-                    presenza.setId(1L);
                     presenza.setData(Util.getNowDate());
                     presenza.setInizioMattina(elaborateMessage(response,this.ENTRY_M) ?
                             Util.getNowDate() : null);
