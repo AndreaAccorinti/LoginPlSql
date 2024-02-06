@@ -11,8 +11,9 @@ import java.time.Instant;
 @Table(name = "PRESENZE")
 public class Presenza {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_PRESENZE", nullable = true)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "presenze_seq_gen")
+    @SequenceGenerator(name = "presenze_seq_gen", sequenceName = "PRESENZE_SEQ", allocationSize = 1)
+    @Column(name = "ID_PRESENZE", nullable = false)
     private Integer id;
 
     @Column(name = "DATA")
