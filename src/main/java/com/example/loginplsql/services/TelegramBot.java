@@ -1,6 +1,6 @@
 package com.example.loginplsql.services;
 
-import com.example.loginplsql.Util.Util;
+import com.example.loginplsql.Utils.Utils;
 import com.example.loginplsql.daos.PresenzaRepository;
 import com.example.loginplsql.daos.UserRepository;
 import com.example.loginplsql.models.Presenza;
@@ -56,15 +56,15 @@ public class TelegramBot extends TelegramLongPollingBot {
                     if (descrizione != null && descrizione.length > 0) {
                         presenza.setDescrizione(descrizione[1]);
                     }
-                    presenza.setData(Util.getNowDate());
+                    presenza.setData(Utils.getNowDate());
                     presenza.setInizioMattina(elaborateMessage(response,this.ENTRY_M) ?
-                            Util.getNowDate() : null);
+                            Utils.getNowDate() : null);
                     presenza.setFineMattina(elaborateMessage(response,this.EXIT_M) ?
-                            Util.getNowDate() : null);
+                            Utils.getNowDate() : null);
                     presenza.setInizioPomeriggio(elaborateMessage(response,this.ENTRY_P) ?
-                            Util.getNowDate() : null);
+                            Utils.getNowDate() : null);
                     presenza.setFinePomeriggio(elaborateMessage(response,this.EXIT_P) ?
-                            Util.getNowDate() : null);
+                            Utils.getNowDate() : null);
 
                     this.daoPresenza.save(presenza);
                 }

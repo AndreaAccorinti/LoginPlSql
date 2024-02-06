@@ -5,8 +5,6 @@ import jakarta.validation.constraints.Size;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import java.time.Instant;
-
 @Entity
 @Table(name = "PRESENZE")
 public class Presenza {
@@ -17,7 +15,7 @@ public class Presenza {
     private Integer id;
 
     @Column(name = "DATA")
-    private Instant data;
+    private Number data;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.RESTRICT)
@@ -29,16 +27,16 @@ public class Presenza {
     private String descrizione;
 
     @Column(name = "INIZIO_MATTINA")
-    private Instant inizioMattina;
+    private Number inizioMattina;
 
     @Column(name = "FINE_MATTINA")
-    private Instant fineMattina;
+    private Number fineMattina;
 
     @Column(name = "INIZIO_POMERIGGIO")
-    private Instant inizioPomeriggio;
+    private Number inizioPomeriggio;
 
     @Column(name = "FINE_POMERIGGIO")
-    private Instant finePomeriggio;
+    private Number finePomeriggio;
 
     @Column(name = "RIMBORSO_SPESE")
     private Long rimborsoSpese;
@@ -51,11 +49,11 @@ public class Presenza {
         this.id = id;
     }
 
-    public Instant getData() {
+    public Number getData() {
         return data;
     }
 
-    public void setData(Instant data) {
+    public void setData(Number data) {
         this.data = data;
     }
 
@@ -75,35 +73,35 @@ public class Presenza {
         this.descrizione = descrizione;
     }
 
-    public Instant getInizioMattina() {
+    public Number getInizioMattina() {
         return inizioMattina;
     }
 
-    public void setInizioMattina(Instant inizioMattina) {
+    public void setInizioMattina(Number inizioMattina) {
         this.inizioMattina = inizioMattina;
     }
 
-    public Instant getFineMattina() {
+    public Number getFineMattina() {
         return fineMattina;
     }
 
-    public void setFineMattina(Instant fineMattina) {
+    public void setFineMattina(Number fineMattina) {
         this.fineMattina = fineMattina;
     }
 
-    public Instant getInizioPomeriggio() {
+    public Number getInizioPomeriggio() {
         return inizioPomeriggio;
     }
 
-    public void setInizioPomeriggio(Instant inizioPomeriggio) {
+    public void setInizioPomeriggio(Number inizioPomeriggio) {
         this.inizioPomeriggio = inizioPomeriggio;
     }
 
-    public Instant getFinePomeriggio() {
+    public Number getFinePomeriggio() {
         return finePomeriggio;
     }
 
-    public void setFinePomeriggio(Instant finePomeriggio) {
+    public void setFinePomeriggio(Number finePomeriggio) {
         this.finePomeriggio = finePomeriggio;
     }
 
