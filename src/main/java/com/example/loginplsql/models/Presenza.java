@@ -5,6 +5,8 @@ import jakarta.validation.constraints.Size;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import java.time.Instant;
+
 @Entity
 @Table(name = "PRESENZE")
 public class Presenza {
@@ -15,9 +17,9 @@ public class Presenza {
     private Integer id;
 
     @Column(name = "DATA")
-    private Number data;
+    private Instant data;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.RESTRICT)
     @JoinColumn(name = "USERNAME")
     private User username;
@@ -27,16 +29,16 @@ public class Presenza {
     private String descrizione;
 
     @Column(name = "INIZIO_MATTINA")
-    private Number inizioMattina;
+    private Instant inizioMattina;
 
     @Column(name = "FINE_MATTINA")
-    private Number fineMattina;
+    private Instant fineMattina;
 
     @Column(name = "INIZIO_POMERIGGIO")
-    private Number inizioPomeriggio;
+    private Instant inizioPomeriggio;
 
     @Column(name = "FINE_POMERIGGIO")
-    private Number finePomeriggio;
+    private Instant finePomeriggio;
 
     @Column(name = "RIMBORSO_SPESE")
     private Long rimborsoSpese;
@@ -47,14 +49,6 @@ public class Presenza {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Number getData() {
-        return data;
-    }
-
-    public void setData(Number data) {
-        this.data = data;
     }
 
     public User getUsername() {
@@ -73,38 +67,6 @@ public class Presenza {
         this.descrizione = descrizione;
     }
 
-    public Number getInizioMattina() {
-        return inizioMattina;
-    }
-
-    public void setInizioMattina(Number inizioMattina) {
-        this.inizioMattina = inizioMattina;
-    }
-
-    public Number getFineMattina() {
-        return fineMattina;
-    }
-
-    public void setFineMattina(Number fineMattina) {
-        this.fineMattina = fineMattina;
-    }
-
-    public Number getInizioPomeriggio() {
-        return inizioPomeriggio;
-    }
-
-    public void setInizioPomeriggio(Number inizioPomeriggio) {
-        this.inizioPomeriggio = inizioPomeriggio;
-    }
-
-    public Number getFinePomeriggio() {
-        return finePomeriggio;
-    }
-
-    public void setFinePomeriggio(Number finePomeriggio) {
-        this.finePomeriggio = finePomeriggio;
-    }
-
     public Long getRimborsoSpese() {
         return rimborsoSpese;
     }
@@ -113,4 +75,43 @@ public class Presenza {
         this.rimborsoSpese = rimborsoSpese;
     }
 
+    public Instant getInizioMattina() {
+        return inizioMattina;
+    }
+
+    public void setInizioMattina(Instant inizioMattina) {
+        this.inizioMattina = inizioMattina;
+    }
+
+    public Instant getFineMattina() {
+        return fineMattina;
+    }
+
+    public void setFineMattina(Instant fineMattina) {
+        this.fineMattina = fineMattina;
+    }
+
+    public Instant getInizioPomeriggio() {
+        return inizioPomeriggio;
+    }
+
+    public void setInizioPomeriggio(Instant inizioPomeriggio) {
+        this.inizioPomeriggio = inizioPomeriggio;
+    }
+
+    public Instant getFinePomeriggio() {
+        return finePomeriggio;
+    }
+
+    public void setFinePomeriggio(Instant finePomeriggio) {
+        this.finePomeriggio = finePomeriggio;
+    }
+
+    public Instant getData() {
+        return data;
+    }
+
+    public void setData(Instant data) {
+        this.data = data;
+    }
 }
