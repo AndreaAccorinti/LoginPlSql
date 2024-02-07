@@ -1,0 +1,25 @@
+<div class="container h-100">
+  <div class="row h-100 align-items-center justify-content-center">
+    <div class="card box col-lg-4 col-md-4 col-sm-6">
+      <div class="card-body" [formGroup]="loginForm">
+        <div class="text-center"><h4>Welcome to Roll Call</h4></div>
+        <div class="text-center"><p>New to us? <a class="link-opacity-1" routerLink="/signup">Sign up</a></p></div>
+        <div class="form-group mb-3">
+          <div class="input-group">
+            <span class="input-group-text icon-color" id="pre_mail"><i class="bi bi-envelope"></i></span>
+            <input id="mail" class="form-control" type="text" placeholder="Email"  (change)="changeInput($event, 'mail')" formControlName="mail" aria-describedby="mail">
+          </div>
+        </div>
+        <div class="form-group mb-3">
+          <div class="input-group">
+            <span class="input-group-text icon-color" id="pre_password"><i class="bi bi-key-fill"></i></span>
+            <input id="password" placeholder="Password" class="form-control" type="text" (change)="changeInput($event, 'password')"  formControlName="password" aria-describedby="password">
+          </div>
+        </div>
+        <div class="form-group mb-3">
+          <button type="button" class="btn btn-primary w-100" (click)="login()" [disabled]="disableLogin">Log in</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

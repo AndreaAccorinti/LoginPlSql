@@ -1,0 +1,39 @@
+<div class="container h-100">
+  <div class="row h-100 align-items-center justify-content-center">
+    <div class="card box col-lg-4 col-md-4 col-sm-6">
+        <div class="card-body" [formGroup]="singnUpForm">
+          <div class="text-center"><h4>Welcome to Roll Call</h4></div>
+          <div class="text-center"><p>Already signed up? <a class="link-opacity-1" routerLink="/login">Log in</a></p></div>
+          <div class="form-group mb-3">
+            <div class="input-group">
+              <span class="input-group-text icon-color" id="pre_username"><i class="bi bi-person"></i></span>
+              <input id="username" placeholder="Username" class="form-control" (change)="changeInput($event, 'username')" type="text"  formControlName="username" aria-describedby="username">
+            </div>
+          </div>
+          <div class="form-group mb-3">
+            <div class="input-group">
+              <span class="input-group-text icon-color" id="pre_password"><i class="bi bi-key-fill"></i></span>
+              <input id="password" placeholder="Password" class="form-control" (change)="changeInput($event, 'password')" type="text"  formControlName="password" aria-describedby="password">
+            </div>
+          </div>
+          <div class="form-group mb-3">
+            <div class="input-group">
+              <span class="input-group-text icon-color" id="pre_name"><i class="bi bi-person-badge-fill"></i></span>
+              <input id="name" placeholder="Name" class="form-control" (change)="changeInput($event, 'name')" type="text"  formControlName="name" aria-describedby="name">
+            </div>
+          </div>
+          <div class="form-group mb-3">
+            <div class="input-group">
+              <span class="input-group-text icon-color" id="pre_mail"><i class="bi bi-envelope"></i></span>
+              <input id="mail" class="form-control" (change)="changeInput($event, 'mail')" type="text" placeholder="Email"  formControlName="mail" aria-describedby="mail">
+            </div>
+          </div>
+          <div class="form-group mb-3">
+            <button type="button" class="btn btn-primary w-100" (click)="singup()" [disabled]="disableSingUp">Sign Up</button>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+

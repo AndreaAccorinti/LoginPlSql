@@ -1,0 +1,23 @@
+/* You can add global styles to this file, and also import other style files */
+body, html {
+  height: 100%;
+  background-image: linear-gradient(#FFFFD2, white) !important;
+}
+
+.card-header{
+  background-image: linear-gradient(90deg, #a5d7b4, #dcede1);
+  border-bottom: 2px solid !important;
+  border-bottom-color: #AA96DA !important;
+}
+
+.card {
+  padding: 0 !important;
+  box-shadow: 0 10px 20px #AA96DA;
+}
+
+.icon-color {
+  background-color: #AA96DA!important;
+  color: white!important;
+}
+
+
