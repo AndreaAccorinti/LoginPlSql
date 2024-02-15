@@ -5,42 +5,42 @@ import jakarta.validation.constraints.Size;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import java.time.Instant;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 @Entity
-@Table(name = "PRESENZE")
+@Table(name = "attendance")
 public class Presenza {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "presenze_seq_gen")
-    @SequenceGenerator(name = "presenze_seq_gen", sequenceName = "PRESENZE_SEQ", allocationSize = 1)
-    @Column(name = "ID_PRESENZE", nullable = false)
+    @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Column(name = "DATA")
-    private Instant data;
+    @Column(name = "DATE_ATTENDANCE")
+    private Timestamp data;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.RESTRICT)
-    @JoinColumn(name = "USERNAME")
+    @JoinColumn(name = "ID_USER")
     private User username;
 
     @Size(max = 100)
-    @Column(name = "DESCRIZIONE", length = 100)
+    @Column(name = "DESCRIPTION_", length = 100)
     private String descrizione;
 
-    @Column(name = "INIZIO_MATTINA")
-    private Instant inizioMattina;
+    @Column(name = "MORNING_I")
+    private Timestamp inizioMattina;
 
-    @Column(name = "FINE_MATTINA")
-    private Instant fineMattina;
+    @Column(name = "MORNING_E")
+    private Timestamp fineMattina;
 
-    @Column(name = "INIZIO_POMERIGGIO")
-    private Instant inizioPomeriggio;
+    @Column(name = "AFTERNOON_I")
+    private Timestamp inizioPomeriggio;
 
-    @Column(name = "FINE_POMERIGGIO")
-    private Instant finePomeriggio;
+    @Column(name = "AFTERNOON_E")
+    private Timestamp finePomeriggio;
 
-    @Column(name = "RIMBORSO_SPESE")
+    @Column(name = "REIMBURSEMENT")
     private Long rimborsoSpese;
 
     public Integer getId() {
@@ -75,43 +75,54 @@ public class Presenza {
         this.rimborsoSpese = rimborsoSpese;
     }
 
-    public Instant getInizioMattina() {
+    public Timestamp getInizioMattina() {
         return inizioMattina;
     }
 
-    public void setInizioMattina(Instant inizioMattina) {
+    public void setInizioMattina(Timestamp inizioMattina) {
         this.inizioMattina = inizioMattina;
     }
 
-    public Instant getFineMattina() {
+    public Timestamp getFineMattina() {
         return fineMattina;
     }
 
-    public void setFineMattina(Instant fineMattina) {
+    public void setFineMattina(Timestamp fineMattina) {
         this.fineMattina = fineMattina;
     }
 
-    public Instant getInizioPomeriggio() {
+    public Timestamp getInizioPomeriggio() {
         return inizioPomeriggio;
     }
 
-    public void setInizioPomeriggio(Instant inizioPomeriggio) {
+    public void setInizioPomeriggio(Timestamp inizioPomeriggio) {
         this.inizioPomeriggio = inizioPomeriggio;
     }
 
-    public Instant getFinePomeriggio() {
+    public Timestamp getFinePomeriggio() {
         return finePomeriggio;
     }
 
-    public void setFinePomeriggio(Instant finePomeriggio) {
+    public void setFinePomeriggio(Timestamp finePomeriggio) {
         this.finePomeriggio = finePomeriggio;
     }
 
-    public Instant getData() {
+    public Timestamp getData() {
         return data;
     }
 
-    public void setData(Instant data) {
+    public void setData(Timestamp data) {
         this.data = data;
+    }
+
+    public Double sumWork() {
+        Long time = Math.abs(fineMattina.getTime() - inizioMattina.getTime()) + Math.abs(finePomeriggio.getTime() - inizioPomeriggio.getTime());
+        SimpleDateFormat sdf = new SimpleDateFormat("HH.mm");
+        return  Double.parseDouble(sdf.format(time)) - 1;
+    }
+
+    public String dayNameIta() {
+        SimpleDateFormat sdf = new SimpleDateFormat("EEEE", Locale.ITALIAN);
+        return sdf.format(this.data);
     }
 }

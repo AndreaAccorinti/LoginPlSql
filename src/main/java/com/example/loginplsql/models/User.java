@@ -3,7 +3,7 @@ package com.example.loginplsql.models;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "users")
+@Table(name = "user_f")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -11,7 +11,9 @@ public class User {
     private String username;
     private String password;
     private String name;
+    private String surname;
     private String email;
+    private String telephone;
 
     public String getUsername() {
         return username;
@@ -53,4 +55,19 @@ public class User {
         this.id = id;
     }
 
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
 }

@@ -21,9 +21,9 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     @Autowired
     PresenzaRepository daoPresenza;
-    private Logger log = LoggerFactory.getLogger(TelegramBot.class);
-    private String token = "6467099780:AAGeFFvVrOqN3Pxj0G5RPqwuDAEnCCJ37VY";
-    private String username = "rollcallf2bot";
+    private final Logger log = LoggerFactory.getLogger(TelegramBot.class);
+    private final String token = "6467099780:AAGeFFvVrOqN3Pxj0G5RPqwuDAEnCCJ37VY";
+    private final String username = "rollcallf2bot";
 
     @Override
     public String getBotUsername() {
@@ -45,7 +45,7 @@ public class TelegramBot extends TelegramLongPollingBot {
             if (response.equals("/button")) {
                 try {
                     SendMessage sendMessage = new SendMessage();
-                    sendMessage.setChatId(update.getMessage().getChatId().toString());
+                    sendMessage.setChatId(chatId.toString());
                     Utils.setButtons(sendMessage);
                     sendMessage.setText("SET UP BUTTONS! :)");
                     execute(sendMessage);
@@ -53,7 +53,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                 } catch (TelegramApiException e) {
                     e.printStackTrace();
                 }
-            } else if (response != null && response.length() > 0 && username != null && username.length() > 0) {
+            } else if (response.length() > 0 && username != null && username.length() > 0) {
                 User user = null;
                 try {
                     user = this.daoUser.findByUsername(username);
