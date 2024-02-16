@@ -1,14 +1,26 @@
 package com.example.loginplsql.controllers;
 import com.example.loginplsql.daos.UserRepository;
 import com.example.loginplsql.exception.UserNotFoundException;
+import com.example.loginplsql.models.LoginResponse;
 import com.example.loginplsql.models.User;
+import com.example.loginplsql.services.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+
 @RestController
 public class UserController {
     @Autowired
     UserRepository daoUser;
+
+    private final UserServiceImpl userService;
+
+    @Autowired
+    public UserController(UserServiceImpl userService) {
+        this.userService = userService;
+    }
 
     @GetMapping("/users_list")
     List<User> getAllUsers() {
@@ -34,6 +46,17 @@ public class UserController {
     @DeleteMapping("/delete-user/{id}")
     void deleteUser(@PathVariable int id) {
         this.daoUser.deleteById(id);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> login(@RequestBody User request) {
+        String username = request.getUsername();
+        User user = daoUser.findByUsername(username);
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new LoginResponse("Login failure!"));
+        }
+        userService.authenticate(user);
+        return ResponseEntity.ok(new LoginResponse("Login successful", userService.getToken()));
     }
 
 }

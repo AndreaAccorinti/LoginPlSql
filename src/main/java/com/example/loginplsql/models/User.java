@@ -3,16 +3,22 @@ package com.example.loginplsql.models;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "user_f")
+@Table(name = "USER_F")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Integer id;
+    @Column(name = "USERNAME")
     private String username;
+    @Column(name = "PASSWORD")
     private String password;
+    @Column(name = "NAME")
     private String name;
+    @Column(name = "SURNAME")
     private String surname;
+    @Column(name = "EMAIL")
     private String email;
+    @Column(name = "TELEPHONE")
     private String telephone;
 
     public String getUsername() {

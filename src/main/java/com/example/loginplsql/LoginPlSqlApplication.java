@@ -1,5 +1,4 @@
 package com.example.loginplsql;
-
 import com.example.loginplsql.services.TelegramBot;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
