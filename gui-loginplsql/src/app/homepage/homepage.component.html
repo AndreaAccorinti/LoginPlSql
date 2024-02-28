@@ -1,0 +1,9 @@
+
+<main>
+  <aside>
+    <app-sidebar (clicked) = onChangeSidebar($event)></app-sidebar>
+  </aside>
+  <section class="main-card">
+    <app-attendance *ngIf="sidebarSelected == 1"></app-attendance>
+  </section>
+</main>

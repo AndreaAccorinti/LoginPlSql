@@ -1,5 +1,5 @@
 
-describe('SignupComponent', () => {
+describe('HeaderComponent', () => {
 
   beforeEach(() => {});
 

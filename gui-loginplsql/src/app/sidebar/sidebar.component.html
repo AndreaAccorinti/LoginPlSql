@@ -1,0 +1,19 @@
+<div class="navbar">
+  <div class="nav-header">
+    <div class="nav-logo">
+      <img src="assets/f2informatica_logo.jpeg">
+    </div>
+    <a class="nav-title">Roll Call</a>
+  </div>
+  <hr>
+  <div class="nav-content">
+    <div class="nav-button" *ngFor="let value of sidebar_list; let index = index">
+      <span (click)="emitEvent(index)">
+        <i class="{{value.icon}}"></i> &nbsp; &nbsp;{{value.title}}
+      </span>
+    </div>
+  </div>
+</div>
+
+
+

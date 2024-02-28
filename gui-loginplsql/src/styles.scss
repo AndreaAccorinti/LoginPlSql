@@ -20,4 +20,25 @@ body, html {
   color: white!important;
 }
 
+header {
+  background-color: #AA96DA !important;
+  padding: 20px;
+}
+
+main {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+
+.main-card {
+  width: calc(100% - 256px - 3vw);
+  height: calc(100% - 2vw);
+  position: absolute;
+  left: calc(256px + 2vw);
+  margin-right: 1vw;
+  top: 1vw;
+}
+
+
 

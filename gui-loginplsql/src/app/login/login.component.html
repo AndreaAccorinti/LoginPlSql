@@ -13,12 +13,13 @@
         <div class="form-group mb-3">
           <div class="input-group">
             <span class="input-group-text icon-color" id="pre_password"><i class="bi bi-key-fill"></i></span>
-            <input id="password" placeholder="Password" class="form-control" type="text" (change)="changeInput($event, 'password')"  formControlName="password" aria-describedby="password">
+            <input id="password" placeholder="Password" class="form-control" type="password" (change)="changeInput($event, 'password')"  formControlName="password" aria-describedby="password">
           </div>
         </div>
         <div class="form-group mb-3">
           <button type="button" class="btn btn-primary w-100" (click)="login()" [disabled]="disableLogin">Log in</button>
         </div>
+        <a class="text-danger">{{error_message}}</a>
       </div>
     </div>
   </div>

@@ -3,6 +3,8 @@ export class User {
     public username: string = "",
     public password: string = "",
     public name: string = "",
-    public email: string = ""
+    public surname: string = "",
+    public email: string = "",
+    public telephone: string = "",
   ) {}
 }

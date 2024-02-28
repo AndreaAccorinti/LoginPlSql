@@ -1,0 +1,54 @@
+.card {
+  height: 100%;
+  overflow: auto;
+}
+.card-title {
+  color: #18283b;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 1.5rem;
+  transition: opacity 1s;
+  position: sticky !important;
+  top: 0 !important;
+}
+
+.tbody-ex::-webkit-scrollbar {
+  height: 100px !important;
+  overflow: auto !important;
+  display: table-row-group !important;
+}
+
+card-body {
+  padding-top: 0;
+}
+
+.thead-ex {
+  display: table-header-group !important;
+}
+
+.thead-sticky {
+  position: sticky !important;
+  top: 0px !important;
+}
+
+.thead-fix {
+  position: inherit !important;
+  top: 0px !important;
+}
+
+.table {
+  top: 2vw;
+}
+
+.table-responsive {
+  height: 470px;
+  margin-top: 2vw;
+}
+
+hr {
+  margin: 0;
+  position: relative;
+  width: calc(100% - 145px);
+  border: none;
+  border-top: solid 2px #8392a5;
+  top: 12px;
+}
