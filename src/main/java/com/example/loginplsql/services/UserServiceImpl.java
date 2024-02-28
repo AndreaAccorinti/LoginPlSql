@@ -40,5 +40,9 @@ public class UserServiceImpl {
     public void setLogged(boolean logged) {
         isLogged = logged;
     }
+
+    public boolean checkToken(String token) {
+        return this.token.equals(token);
+    }
 }
 

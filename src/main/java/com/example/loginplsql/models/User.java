@@ -4,9 +4,11 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "USER_F")
+@SequenceGenerator(name = "user_seq_gen", sequenceName = "USER_SEQ", allocationSize = 1)
 public class User {
     @Id
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq_gen")
+    @Column(name = "ID", nullable = false)
     private Integer id;
     @Column(name = "USERNAME")
     private String username;

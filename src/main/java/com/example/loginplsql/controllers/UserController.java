@@ -50,10 +50,9 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody User request) {
-        String username = request.getUsername();
-        User user = daoUser.findByUsername(username);
+        User user = daoUser.findByEmailAndPassword(request.getEmail(), request.getPassword());
         if (user == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new LoginResponse("Login failure!"));
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new LoginResponse("Invalid username or password!"));
         }
         userService.authenticate(user);
         return ResponseEntity.ok(new LoginResponse("Login successful", userService.getToken()));
