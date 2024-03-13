@@ -1,16 +1,46 @@
 <div class="card" (scroll)="onScroll($event)">
-  <div class="card-body">
+  <div class="card-body pb-0">
+    <div class="row">
+      <div class="col-lg-10 col-md-8 col-sm-6">
+        <h2 class="m-0">{{title}}</h2>
+      </div>
+      <div class="col-lg-2 col-md-4 col-sm-6">
+        <div class="container conteiner-icon">
+          <i (click)="openCsvModal()"  class="m-0 bi bi-filetype-csv icon-csv"></i>
+          <i (click)="openCsvModal()"  class="bi bi-plus-circle-fill icon-margin icon-plus"></i>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-sm-4 col-md-3 col-xl-3">
+        <form [formGroup]="form">
+          <div class="container">
+            <select formControlName="selectController" class="form-control m-0 select">
+              <option value="">Select a month</option>
+              <option *ngFor="let month of month_list"
+                      value="month.month_format">
+                {{month.month_name}}
+              </option>
+            </select>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- div class="row mt-3">
+      <div class="col-12 table-header-fix">
+        <table class="table table-hover">
+
+        </table>
+      </div>
+    </div -->
+  </div>
+  <div class="card-body overflow-body pt-0">
     <div class="row">
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="table-responsive-lg" *ngIf="data.length > 0">
           <table class="table table-hover">
-            <thead class="thead-fix" id="thead-x">
-            <tr class="card-title m-0">
-              <th colspan="7" class="m-0 border-0">
-                <h2 class="m-0">{{title}}</h2>
-              </th>
-            </tr>
-              <tr class="col-12">
+            <thead class="thead-sticky">
+              <tr>
                 <th scope="col">Date</th>
                 <th scope="col">Description</th>
                 <th scope="col">Moring I</th>
@@ -33,6 +63,31 @@
             </tbody>
           </table>
         </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+  </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>

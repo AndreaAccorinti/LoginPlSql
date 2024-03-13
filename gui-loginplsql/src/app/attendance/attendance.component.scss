@@ -1,6 +1,5 @@
 .card {
   height: 100%;
-  overflow: auto;
 }
 .card-title {
   color: #18283b;
@@ -11,9 +10,12 @@
   top: 0 !important;
 }
 
+.overflow-body {
+  overflow: auto;
+}
+
 .tbody-ex::-webkit-scrollbar {
   height: 100px !important;
-  overflow: auto !important;
   display: table-row-group !important;
 }
 
@@ -51,4 +53,46 @@ hr {
   border: none;
   border-top: solid 2px #8392a5;
   top: 12px;
+}
+
+
+.icon-csv {
+  cursor: pointer;
+  color: green;
+}
+
+.icon-margin {
+  margin-left: 4px;
+}
+
+.icon-plus {
+  cursor: pointer;
+  color: #2c3e50;
+}
+
+.icon-csv, .icon-plus {
+  font-size: 21px !important;
+  vertical-align: middle !important;
+}
+
+.conteiner-icon {
+  height: 100%;
+  border: solid 2px #2c3e50;
+  border-radius: 45%;
+  padding: 1px;
+  text-align: center;
+}
+
+.table-header-fix {
+  height: 43px;
+}
+
+.conteiner-info-b {
+  width: 155px !important;
+  height: 100% !important;
+  margin-left: 0 !important;
+}
+
+.cell-s {
+  width: 40px;
 }

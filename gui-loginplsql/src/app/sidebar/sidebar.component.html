@@ -1,8 +1,8 @@
 <div class="navbar">
   <div class="nav-header">
-    <div class="nav-logo">
+    <!--div class="nav-logo">
       <img src="assets/f2informatica_logo.jpeg">
-    </div>
+    </div -->
     <a class="nav-title">Roll Call</a>
   </div>
   <hr>
@@ -12,6 +12,17 @@
         <i class="{{value.icon}}"></i> &nbsp; &nbsp;{{value.title}}
       </span>
     </div>
+  </div>
+  <div class="nav-footer" *ngIf="userData != null">
+      <div class="nav-footer-heading">
+          <div class="nav-footer-avatar">
+            <p [attr.data-letters]="userData.name + ' ' +userData.surname | initials"></p>
+          </div>
+          <div class="nav-footer-titlebox">
+              <span class="nav-footer-title">{{userData.name}} {{userData.surname}}</span>
+              <span class="nav-footer-subtitle">Admin</span>
+          </div>
+      </div>
   </div>
 </div>
 

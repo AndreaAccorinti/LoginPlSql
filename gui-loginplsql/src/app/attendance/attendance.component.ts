@@ -1,8 +1,12 @@
 import {Component, HostListener, OnInit} from '@angular/core';
-import {mock_attandance} from "../environments/environments";
 import {DatePipe} from "@angular/common";
 import {AttendanceService} from "./attendance.service";
 import {Router} from "@angular/router";
+import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import { NbDialogService } from '@nebular/theme';
+import { AttendanceDialogComponent } from '../attendance-dialog/attendance-dialog.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
   selector: 'app-attendance',
@@ -12,13 +16,28 @@ import {Router} from "@angular/router";
 export class AttendanceComponent implements OnInit{
     title: string;
     data: any[] = [];
+    month_list: any[] = [];
+    form: FormGroup;
     constructor(private datePipe: DatePipe, private service: AttendanceService,
-                private router: Router) {
+                private router: Router, private formBuilder: FormBuilder,
+                private dialogService: NbDialogService,
+                private modalService: NgbModal ) {
       this.title = "Attendance";
-
+      this.form = this.formBuilder.group({
+        selectController: new FormControl('')
+      });
     }
 
     ngOnInit() {
+      this.service.getSelectStyle().subscribe(data => {
+        const style = document.createElement('style');
+        style.type = 'text/css';
+        style.innerHTML = data;
+      });
+      this.service.getMonthList().subscribe(data => {
+        this.month_list = data.monthList;
+        console.log(this.month_list);
+      });
       this.service.getAttendanceForSys().subscribe(data => {
         this.data = data.attendanceList;
       },
@@ -40,6 +59,10 @@ export class AttendanceComponent implements OnInit{
           thead.classList.add('thead-fix');
         }
       }
+    }
+
+    openCsvModal() {
+      this.modalService.open(AttendanceDialogComponent);
     }
 
 }

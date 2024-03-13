@@ -4,8 +4,11 @@ import {LoginComponent} from "./login/login.component";
 import {SignupComponent} from "./signup/signup.component";
 import {HomepageComponent} from "./homepage/homepage.component";
 import {SessionGuardService} from "./session-guard.service";
+import {TestLitComponent} from "./test-lit/test-lit.component";
+import {AppComponent} from "./app.component";
 
 const routes: Routes = [
+  {path:"test-lit", component: AppComponent},
   {path: "homepage", component: HomepageComponent, canActivate: [SessionGuardService]},
   {path:"login", component: LoginComponent},
   {path: "signup", component: SignupComponent},

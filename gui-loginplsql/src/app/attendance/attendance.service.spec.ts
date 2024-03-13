@@ -14,6 +14,7 @@ describe('AttendanceService', () => {
     });
     attendanceService = TestBed.inject(AttendanceService);
     httpTestingController = TestBed.inject(HttpTestingController);
+    localStorage.setItem('access_token', 'test');
   });
 
   afterEach(() => {
@@ -33,8 +34,6 @@ describe('AttendanceService', () => {
       REIMBURSEMENT: 20
     };
 
-    localStorage.setItem('access_token', 'test');
-
     attendanceService.getAttendanceForSys().subscribe( response => {
       expect(response).toHaveSize(10);
 
@@ -43,4 +42,27 @@ describe('AttendanceService', () => {
     expect(req.request.method).toEqual('POST');
     req.flush(mock_attandance);
 	});
+
+  it('month list', () => {
+
+    const mock_data = {
+      id: 1,
+      month_name: 'Gennaio',
+      month_format: '01/01/2024'
+    };
+
+    const mock_data_list = {
+      monthList: [ mock_data ],
+      response: 'OK'
+    };
+
+    attendanceService.getMonthList().subscribe( response => {
+      expect(response.monthList[0]).toEqual(mock_data);
+    });
+
+    const req = httpTestingController.expectOne(enviroments.urlApi + 'sysdatetime/month-list');
+    expect(req.request.method).toEqual('GET');
+    req.flush(mock_data_list);
+
+  });
 });

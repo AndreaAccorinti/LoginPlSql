@@ -1,3 +1,4 @@
+@import "../node_modules/angular-calendar/css/angular-calendar.css";
 /* You can add global styles to this file, and also import other style files */
 body, html {
   height: 100%;
@@ -40,5 +41,16 @@ main {
   top: 1vw;
 }
 
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
 
 
+::-webkit-scrollbar-thumb {
+  border-radius: 99px;
+  background-color: #D62929;
+}
+
+/* Importing Bootstrap SCSS file. */
+@import 'bootstrap/scss/bootstrap';
