@@ -55,7 +55,8 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new LoginResponse("Invalid username or password!"));
         }
         userService.authenticate(user);
-        return ResponseEntity.ok(new LoginResponse("Login successful", userService.getToken()));
+        user.setPassword(null);
+        return ResponseEntity.ok(new LoginResponse("Login successful", userService.getToken(), user));
     }
 
 }

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,6 +32,18 @@ public class AttendanceController {
             return ResponseEntity.ok(attendanceResponse);
         }
         attendanceResponse.setResponse("non fare il furbo!");
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(attendanceResponse);
+    }
+
+    @PostMapping("/attendance-from-month")
+    ResponseEntity<AttendanceResponse> getAttendanceFromMonth(@RequestHeader LoginResponse response,@RequestBody String month) {
+        AttendanceResponse attendanceResponse = new AttendanceResponse();
+        if (userService.isLogged() && userService.checkToken(response.getResponse())) {
+            attendanceResponse.setAttendanceList(this.daoAttendance.getSysTimestampMounth());
+            attendanceResponse.setResponse("OK");
+            return ResponseEntity.ok(attendanceResponse);
+        }
+        attendanceResponse.setResponse("UNAUTHORIZED");
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(attendanceResponse);
     }
 }

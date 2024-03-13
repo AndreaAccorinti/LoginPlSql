@@ -3,6 +3,7 @@ package com.example.loginplsql.models;
 public class LoginResponse {
     private String response;
     private String token;
+    private User user;
     public LoginResponse(String response) {
         this.response = response;
     }
@@ -10,6 +11,12 @@ public class LoginResponse {
     public LoginResponse(String response, String token) {
         this.response = response;
         this.token = token;
+    }
+
+    public LoginResponse(String response, String token, User user) {
+        this.response = response;
+        this.token = token;
+        this.user = user;
     }
 
     public String getResponse() {
@@ -26,5 +33,13 @@ public class LoginResponse {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
