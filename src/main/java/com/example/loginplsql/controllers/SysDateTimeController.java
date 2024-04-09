@@ -2,6 +2,7 @@ package com.example.loginplsql.controllers;
 
 import com.example.loginplsql.daos.SysDateTimeRepository;
 import com.example.loginplsql.models.LoginResponse;
+import com.example.loginplsql.models.Month;
 import com.example.loginplsql.models.MonthResponse;
 import com.example.loginplsql.services.UserServiceImpl;
 import org.slf4j.Logger;
@@ -13,6 +14,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/sysdatetime")
@@ -28,16 +34,24 @@ public class SysDateTimeController {
     @GetMapping("/month-list")
     ResponseEntity<MonthResponse> getMonthList(@RequestHeader LoginResponse loginResponse) {
         MonthResponse monthResponse = new MonthResponse();
-        if (userService.isLogged() && userService.checkToken(loginResponse.getResponse())) {
-            try {
-                monthResponse.setMonthList(sysDateTimeRepository.monthList());
-                monthResponse.setResponse("OK");
-                return ResponseEntity.ok(monthResponse);
-            } catch (Exception e) {
-                log.info(e.toString());
-            }
+        List<Month> monthList = new ArrayList<>();
+        LocalDate now = LocalDate.now();
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        int m = now.getMonth().getValue();
+        monthList.add(new Month(0, now.getMonth().name(), now.format(dateTimeFormatter)));
+        for (int i = 1; i < m; i++) {
+            LocalDate month = now.minusMonths(i);
+            Month newMonth = new Month(i, month.getMonth().name(), month.format(dateTimeFormatter));
+            monthList.add(newMonth);
         }
+        if (userService.isLogged() && userService.checkToken(loginResponse.getResponse())) {
+            monthResponse.setMonthList(monthList.reversed());
+            monthResponse.setResponse("OK");
+            return ResponseEntity.ok(monthResponse);
+        }
+
         monthResponse.setResponse("UNAUTHORIZED");
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(monthResponse);
+
     }
 }

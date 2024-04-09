@@ -18,7 +18,7 @@
             <select formControlName="selectController" class="form-control m-0 select">
               <option value="">Select a month</option>
               <option *ngFor="let month of month_list"
-                      value="month.month_format">
+                      [value]="month.month_format">
                 {{month.month_name}}
               </option>
             </select>
@@ -47,7 +47,6 @@
                 <th scope="col">Morning E</th>
                 <th scope="col">Afternoon I</th>
                 <th scope="col">Afternoon E</th>
-                <th scope="col">Reimbursement</th>
               </tr>
             </thead>
             <tbody class="tbody-ex">
@@ -58,7 +57,6 @@
               <td>{{value.fineMattina | date: 'H:mm'}}</td>
               <td>{{value.inizioPomeriggio | date: 'H:mm'}}</td>
               <td>{{value.finePomeriggio | date: 'H:mm'}}</td>
-              <td>{{value.rimborsoSpese}}</td>
             </tr>
             </tbody>
           </table>

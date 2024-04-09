@@ -13,4 +13,5 @@ public interface PresenzaRepository extends JpaRepository<Presenza, Integer> {
 
     @Query(value = "select * from attendance where monthname(curdate()) like monthname(date_attendance) order by date_attendance", nativeQuery = true)
     List<Presenza> getSysTimestampMounth();
+
 }

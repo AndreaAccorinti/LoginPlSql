@@ -1,3 +1,4 @@
+import { EventColor } from 'calendar-utils';
 export const enviroments = {
   urlApi: 'http://localhost:8082/',
   mockAttandanceUrl: '../environments/mock-data.json'
@@ -129,6 +130,33 @@ export const mock_attandance = [
     AFTERNOON_E: "2024-02-14 18:00:00.000000",
     REIMBURSEMENT: 20
   }
-]
+];
+
+export const colors: Record<string, EventColor> = {
+  red: {
+    primary: '#ad2121',
+    secondary: '#FAE3E3',
+  },
+  blue: {
+    primary: '#1e90ff',
+    secondary: '#D1E8FF',
+  },
+  yellow: {
+    primary: '#e3bc08',
+    secondary: '#FDF1BA',
+  },
+  green: {
+    primary: '#7CFC00',
+    secondary: '#008000',
+  },
+  nyanza: {
+    primary: '#ECFFDC',
+    secondary: '#C1E1C1',
+  },
+  citrine: {
+    primary: '#581845',
+    secondary: '#C1E1C1',
+  }
+};
 
 

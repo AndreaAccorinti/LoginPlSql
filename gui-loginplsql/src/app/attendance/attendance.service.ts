@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {enviroments} from "../environments/environments";
 import {catchError, Observable} from "rxjs";
+import { Attendance } from "../model/model";
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +29,15 @@ export class AttendanceService {
         .pipe( catchError(err => {return err}));
     }
     return new Observable<any>();
+  }
+
+  addAttendances(attendances: Attendance []): Observable<any> | null {
+    if (this.token != null) {
+      const header = new HttpHeaders().set('response', this.token);
+      return this.http.post(this.baseUrl+'add-attendances', attendances, {headers: header})
+        .pipe( catchError(err => {return err}));
+    }
+    return null;
   }
 
   getSelectStyle(): Observable<any> {

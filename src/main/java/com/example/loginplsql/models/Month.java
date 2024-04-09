@@ -12,6 +12,12 @@ public class Month {
     private String month_name;
     private String month_format;
 
+    public Month(Integer id, String month_name, String month_format) {
+        this.id = id;
+        this.month_name = month_name;
+        this.month_format = month_format;
+    }
+
     public Integer getId() {
         return id;
     }

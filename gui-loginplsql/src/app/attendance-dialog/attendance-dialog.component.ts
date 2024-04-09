@@ -3,6 +3,8 @@ import {
   ChangeDetectionStrategy,
   ViewChild,
   TemplateRef,
+  Inject,
+  OnInit
 } from '@angular/core';
 import {
   startOfDay,
@@ -13,9 +15,13 @@ import {
   isSameDay,
   isSameMonth,
   addHours,
+  getTime,
+  setHours,
+  setMinutes,
+  format,
 } from 'date-fns';
 import { Subject } from 'rxjs';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   CalendarEvent,
   CalendarEventAction,
@@ -23,40 +29,22 @@ import {
   CalendarView,
 } from 'angular-calendar';
 import { EventColor } from 'calendar-utils';
+import { Attendance, CalendarEventForRange } from '../model/model';
+import { User } from '../assets/user';
+import { AttendanceService } from '../attendance/attendance.service';
+import { raggruppaGiorniDescizione } from '../assets/utils';
+import { colors } from '../environments/environments';
+import { setColor } from '../assets/utils';
 
-const colors: Record<string, EventColor> = {
-  red: {
-    primary: '#ad2121',
-    secondary: '#FAE3E3',
-  },
-  blue: {
-    primary: '#1e90ff',
-    secondary: '#D1E8FF',
-  },
-  yellow: {
-    primary: '#e3bc08',
-    secondary: '#FDF1BA',
-  },
-};
 
 @Component({
   selector: 'app-attendance-dialog',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styles: [
-    `
-      h3 {
-        margin: 0 0 10px;
-      }
-
-      pre {
-        background-color: #f5f5f5;
-        padding: 15px;
-      }
-    `,
-  ],
+  styleUrls: ['./attendance-dialog.component.scss'],
   templateUrl: './attendance-dialog.component.html',
 })
-export class AttendanceDialogComponent {
+export class AttendanceDialogComponent implements OnInit {
+  
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any> | null = null;
 
   view: CalendarView = CalendarView.Month;
@@ -65,10 +53,14 @@ export class AttendanceDialogComponent {
 
   viewDate: Date = new Date();
 
+  descEventList : string [] = ["Lavoro", "Ferie", "Permesso (Rol)", "Malattia", "Assenza Ingiustificata"];
+
+  data: Attendance [] | undefined;
+
   modalData: {
     action: string;
     event: CalendarEvent;
-  }| null = null;
+  } | null = null;
 
   actions: CalendarEventAction[] = [
     {
@@ -90,50 +82,33 @@ export class AttendanceDialogComponent {
 
   refresh = new Subject<void>();
 
-  events: CalendarEvent[] = [
-    {
-      start: subDays(startOfDay(new Date()), 1),
-      end: addDays(new Date(), 1),
-      title: 'A 3 day event',
-      color: { ...colors['red'] },
-      actions: this.actions,
-      allDay: true,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true,
-      },
-      draggable: true,
-    },
-    {
-      start: startOfDay(new Date()),
-      title: 'An event with no end date',
-      color: { ...colors['yellow'] },
-      actions: this.actions,
-    },
-    {
-      start: subDays(endOfMonth(new Date()), 3),
-      end: addDays(endOfMonth(new Date()), 3),
-      title: 'A long event that spans 2 months',
-      color: { ...colors['blue'] },
-      allDay: true,
-    },
-    {
-      start: addHours(startOfDay(new Date()), 2),
-      end: addHours(new Date(), 2),
-      title: 'A draggable and resizable event',
-      color: { ...colors['yellow'] },
-      actions: this.actions,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true,
-      },
-      draggable: true,
-    },
-  ];
+  events: CalendarEventForRange[] = [];
 
   activeDayIsOpen: boolean = true;
+  selectedRange: [Date, Date] | null = null;
 
-  constructor(private modal: NgbModal) {}
+  constructor(
+    private modal: NgbModal, 
+    @Inject(NgbActiveModal) public activeModal: NgbActiveModal,
+    private service: AttendanceService) {}
+
+  ngOnInit(): void {
+    if (!!this.data) {
+      this.events = raggruppaGiorniDescizione(this.data);
+      console.log(this.events);
+    }
+  }
+
+  onDateChangeHandler(dateRange: any, event: any) {
+    if(!!dateRange.from) {
+      event.start = dateRange.from;
+      event.end = dateRange.from;
+    } 
+    if(!!dateRange.to) {
+      event.end = dateRange.to;
+    }
+    this.refresh.next();
+  }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
@@ -176,15 +151,20 @@ export class AttendanceDialogComponent {
     this.events = [
       ...this.events,
       {
-        title: 'New event',
+        title: 'Lavoro',
         start: startOfDay(new Date()),
         end: endOfDay(new Date()),
-        color: colors['red'],
+        range: {from: new Date() , to: new Date() },
+        color: colors['green'],
         draggable: true,
         resizable: {
           beforeStart: true,
           afterEnd: true,
         },
+        start_m: '09:00',
+        end_m: '13:00',
+        start_p: '14:00',
+        end_p: '18:00' 
       },
     ];
   }
@@ -199,5 +179,51 @@ export class AttendanceDialogComponent {
 
   closeOpenMonthViewDay() {
     this.activeDayIsOpen = false;
+  }
+
+  closeModal() {
+    this.activeModal.close();
+  }
+
+  saveCalendar() {
+      let attendances: Attendance[] = [];
+      const jsonData = localStorage.getItem('user');
+      let userData: User = new User();
+      if (jsonData != null)
+        userData = JSON.parse(jsonData);
+      this.events.forEach( (event) => {
+        if (event.end != null && event.end != undefined) {
+          for(let date: Date = event.start; date <= event.end; date = addDays(date, 1)) {
+            const attendance: Attendance = 
+              {
+                data: format(date, "yyyy-MM-dd'T'HH:mm:ss.SSSX"),
+                descrizione: event.title,
+                username: userData,
+                inizioMattina: this.getTimestampFromDateTime(date, event.start_m),
+                fineMattina: this.getTimestampFromDateTime(date, event.end_m),
+                inizioPomeriggio: this.getTimestampFromDateTime(date, event.start_p),
+                finePomeriggio: this.getTimestampFromDateTime(date, event.end_p)
+              };
+            if (!!event.id) {
+              attendance.id = +event.id;
+            }   
+            attendances = [ ...attendances, attendance];
+          }
+        }
+      });
+      if(attendances.length) {
+        this.service.addAttendances(attendances)?.subscribe( (result) => {
+          this.closeModal();
+        });
+      }
+  }
+
+  getTimestampFromDateTime(date: Date, time: string|undefined): string {
+    return format(date, "yyyy-MM-dd'T'") + time + ':00.000+01';
+    
+  }
+
+  setColor(event: CalendarEvent) {
+    setColor(event);
   }
 }

@@ -25,18 +25,13 @@ import {SessionGuardService} from "./session-guard.service";
 import { HeaderComponent } from './header/header.component';
 import { AttendanceComponent } from './attendance/attendance.component';
 import { TestLitComponent } from './test-lit/test-lit.component';
-import {MyLitComponent} from "../assets/my-lit-component";
 import { InitialsPipe } from './pipe/initials.pipe';
-import { AttendanceDialogComponent } from './attendance-dialog/attendance-dialog.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
-//import { adapterFactory } from 'angular-calendar/date-adapters/moment';
-import * as moment from 'moment';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
-
-//export function momentAdapterFactory() {
-  //return adapterFactory(moment);
-//};
+import { AttendanceDialogModule } from './attendance-dialog/attendance-dialog.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FlatpickrModule } from 'angularx-flatpickr';
 export function tokenGetter() {
   return localStorage.getItem('access_token');
 }
@@ -50,8 +45,7 @@ export function tokenGetter() {
     HeaderComponent,
     AttendanceComponent,
     TestLitComponent,
-    InitialsPipe,
-    AttendanceDialogComponent
+    InitialsPipe
   ],
   imports: [
     BrowserModule,
@@ -75,7 +69,10 @@ export function tokenGetter() {
       }
     }),
     NgbModule,
-    CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory  })
+    CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
+    AttendanceDialogModule,
+    BrowserAnimationsModule,
+    FlatpickrModule.forRoot(),
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [SessionGuardService, DatePipe],

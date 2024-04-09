@@ -5,7 +5,8 @@ import {Router} from "@angular/router";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import { NbDialogService } from '@nebular/theme';
 import { AttendanceDialogComponent } from '../attendance-dialog/attendance-dialog.component';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { Attendance } from '../model/model';
 
 
 @Component({
@@ -15,35 +16,31 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class AttendanceComponent implements OnInit{
     title: string;
-    data: any[] = [];
+    data: Attendance[] = [];
     month_list: any[] = [];
     form: FormGroup;
+    modalRef: NgbModalRef | undefined;
     constructor(private datePipe: DatePipe, private service: AttendanceService,
                 private router: Router, private formBuilder: FormBuilder,
                 private dialogService: NbDialogService,
                 private modalService: NgbModal ) {
       this.title = "Attendance";
       this.form = this.formBuilder.group({
-        selectController: new FormControl('')
+        selectController: new FormControl(null)
       });
     }
 
     ngOnInit() {
-      this.service.getSelectStyle().subscribe(data => {
-        const style = document.createElement('style');
-        style.type = 'text/css';
-        style.innerHTML = data;
-      });
       this.service.getMonthList().subscribe(data => {
         this.month_list = data.monthList;
-        console.log(this.month_list);
+        this.form.setValue( { selectController: this.month_list[this.month_list.length - 1].month_format });
       });
       this.service.getAttendanceForSys().subscribe(data => {
         this.data = data.attendanceList;
       },
         (error) => {
           this.router.navigate(['/login'])
-        })
+        });
     }
 
   @HostListener('scroll', ['$event'])
@@ -62,7 +59,9 @@ export class AttendanceComponent implements OnInit{
     }
 
     openCsvModal() {
-      this.modalService.open(AttendanceDialogComponent);
+      this.modalRef = this.modalService.open(AttendanceDialogComponent);
+      this.modalRef.componentInstance.data = this.data;
+      this.modalRef.closed.subscribe( ()=> { this.ngOnInit() });
     }
 
 }

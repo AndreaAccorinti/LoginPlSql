@@ -13,6 +13,7 @@ import java.util.Locale;
 @Table(name = "attendance")
 public class Presenza {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
