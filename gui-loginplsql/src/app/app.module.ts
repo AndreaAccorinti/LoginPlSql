@@ -17,9 +17,9 @@ import {
 } from "@nebular/theme";
 import { LoginComponent } from './login/login.component';
 import {RouterOutlet} from "@angular/router";
-import {HttpClientModule, HttpHeaders} from "@angular/common/http";
+import {HttpClientModule} from "@angular/common/http";
 import { SidebarComponent } from './sidebar/sidebar.component';
-import {enviroments} from "./environments/environments";
+import {environments} from "./environments/environments";
 import { HomepageComponent } from './homepage/homepage.component';
 import {SessionGuardService} from "./session-guard.service";
 import { HeaderComponent } from './header/header.component';
@@ -32,6 +32,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { AttendanceDialogModule } from './attendance-dialog/attendance-dialog.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlatpickrModule } from 'angularx-flatpickr';
+import { RegistryComponent } from './registry/registry.component';
 export function tokenGetter() {
   return localStorage.getItem('access_token');
 }
@@ -44,8 +45,10 @@ export function tokenGetter() {
     HomepageComponent,
     HeaderComponent,
     AttendanceComponent,
+    RegistryComponent,
     TestLitComponent,
-    InitialsPipe
+    InitialsPipe,
+    RegistryComponent
   ],
   imports: [
     BrowserModule,
@@ -64,8 +67,8 @@ export function tokenGetter() {
     JwtModule.forRoot( {
       config: {
         tokenGetter,
-        allowedDomains: [enviroments.urlApi], // Replace with your backend domain
-        disallowedRoutes: [enviroments.urlApi + 'public']
+        allowedDomains: [environments.urlApi], // Replace with your backend domain
+        disallowedRoutes: [environments.urlApi + 'public']
       }
     }),
     NgbModule,

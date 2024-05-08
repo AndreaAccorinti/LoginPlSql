@@ -2,7 +2,6 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {sidebar_list} from "../environments/environments";
 import { UserSession } from '../environments/HttpResponseToken';
 import { UserSessionService } from '../session/user-session.service';
-import { InitialsPipe } from '../pipe/initials.pipe';
 
 @Component({
   selector: 'app-sidebar',

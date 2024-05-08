@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {enviroments} from "../environments/environments";
+import {environments} from "../environments/environments";
 import {catchError, Observable} from "rxjs";
 import { Attendance } from "../model/model";
 
@@ -8,7 +8,7 @@ import { Attendance } from "../model/model";
   providedIn: 'root'
 })
 export class AttendanceService {
-  private baseUrl = enviroments.urlApi;
+  private baseUrl = environments.urlApi;
   private token = localStorage.getItem('access_token')
   constructor(private http: HttpClient) {}
 

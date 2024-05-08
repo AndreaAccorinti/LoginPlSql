@@ -2,12 +2,13 @@
   <div class="card-body pb-0">
     <div class="row">
       <div class="col-lg-10 col-md-8 col-sm-6">
-        <h2 class="m-0">{{title}}</h2>
+        <h2 class="m-0">{{ title }}</h2>
       </div>
       <div class="col-lg-2 col-md-4 col-sm-6">
-        <div class="container conteiner-icon">
-          <i (click)="openCsvModal()"  class="m-0 bi bi-filetype-csv icon-csv"></i>
-          <i (click)="openCsvModal()"  class="bi bi-plus-circle-fill icon-margin icon-plus"></i>
+        <div class="container container-icon">
+          <i (click)="openCsvModal()" (keydown)="openCsvModal()" class="m-0 bi bi-filetype-csv icon-csv"></i>
+          <i (click)="openCsvModal()" (keydown)="openCsvModal()"
+             class="bi bi-plus-circle-fill icon-margin icon-plus"></i>
         </div>
       </div>
     </div>
@@ -19,20 +20,13 @@
               <option value="">Select a month</option>
               <option *ngFor="let month of month_list"
                       [value]="month.month_format">
-                {{month.month_name}}
+                {{ month.month_name }}
               </option>
             </select>
           </div>
         </form>
       </div>
     </div>
-    <!-- div class="row mt-3">
-      <div class="col-12 table-header-fix">
-        <table class="table table-hover">
-
-        </table>
-      </div>
-    </div -->
   </div>
   <div class="card-body overflow-body pt-0">
     <div class="row">
@@ -40,23 +34,23 @@
         <div class="table-responsive-lg" *ngIf="data.length > 0">
           <table class="table table-hover">
             <thead class="thead-sticky">
-              <tr>
-                <th scope="col">Date</th>
-                <th scope="col">Description</th>
-                <th scope="col">Moring I</th>
-                <th scope="col">Morning E</th>
-                <th scope="col">Afternoon I</th>
-                <th scope="col">Afternoon E</th>
-              </tr>
+            <tr>
+              <th scope="col">Date</th>
+              <th scope="col">Description</th>
+              <th scope="col">Morning I</th>
+              <th scope="col">Morning E</th>
+              <th scope="col">Afternoon I</th>
+              <th scope="col">Afternoon E</th>
+            </tr>
             </thead>
             <tbody class="tbody-ex">
             <tr *ngFor="let value of data">
-              <td>{{value.data | date: 'dd MMM yyyy'}}</td>
-              <td>{{value.descrizione}}</td>
-              <td>{{value.inizioMattina | date: 'H:mm'}}</td>
-              <td>{{value.fineMattina | date: 'H:mm'}}</td>
-              <td>{{value.inizioPomeriggio | date: 'H:mm'}}</td>
-              <td>{{value.finePomeriggio | date: 'H:mm'}}</td>
+              <td>{{ value.data | date: 'dd MMM yyyy' }}</td>
+              <td>{{ value.descrizione }}</td>
+              <td>{{ value.inizioMattina | date: 'H:mm' }}</td>
+              <td>{{ value.fineMattina | date: 'H:mm' }}</td>
+              <td>{{ value.inizioPomeriggio | date: 'H:mm' }}</td>
+              <td>{{ value.finePomeriggio | date: 'H:mm' }}</td>
             </tr>
             </tbody>
           </table>
@@ -69,10 +63,10 @@
 </div>
 
 
-
 <!-- Modal -->
-<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+<dialog class="modal fade" id="exampleModalLong" tabindex="-1" aria-labelledby="exampleModalLongTitle"
+        aria-hidden="true">
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
@@ -81,7 +75,7 @@
         </button>
       </div>
       <div class="modal-body">
-        ...
+        <!-- Modal content here -->
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -89,4 +83,4 @@
       </div>
     </div>
   </div>
-</div>
+</dialog>

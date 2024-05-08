@@ -1,5 +1,5 @@
 import { EventColor } from 'calendar-utils';
-export const enviroments = {
+export const environments = {
   urlApi: 'http://localhost:8082/',
   mockAttandanceUrl: '../environments/mock-data.json'
 }

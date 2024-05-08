@@ -1,7 +1,7 @@
 import {AttendanceService} from "./attendance.service";
 import {TestBed} from "@angular/core/testing";
 import {HttpClientTestingModule, HttpTestingController} from "@angular/common/http/testing";
-import {enviroments, mock_attandance} from "../environments/environments";
+import {environments, mock_attandance} from "../environments/environments";
 
 describe('AttendanceService', () => {
 	let attendanceService: AttendanceService,
@@ -38,7 +38,7 @@ describe('AttendanceService', () => {
       expect(response).toHaveSize(10);
 
     });
-    const req = httpTestingController.expectOne(enviroments.urlApi+'attendance_list_systmp');
+    const req = httpTestingController.expectOne(environments.urlApi+'attendance_list_systmp');
     expect(req.request.method).toEqual('POST');
     req.flush(mock_attandance);
 	});
@@ -60,7 +60,7 @@ describe('AttendanceService', () => {
       expect(response.monthList[0]).toEqual(mock_data);
     });
 
-    const req = httpTestingController.expectOne(enviroments.urlApi + 'sysdatetime/month-list');
+    const req = httpTestingController.expectOne(environments.urlApi + 'sysdatetime/month-list');
     expect(req.request.method).toEqual('GET');
     req.flush(mock_data_list);
 
