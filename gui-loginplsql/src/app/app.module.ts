@@ -33,6 +33,7 @@ import { AttendanceDialogModule } from './attendance-dialog/attendance-dialog.mo
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlatpickrModule } from 'angularx-flatpickr';
 import { RegistryComponent } from './registry/registry.component';
+import { RegistryDialogComponent } from './registry-dialog/registry-dialog.component';
 export function tokenGetter() {
   return localStorage.getItem('access_token');
 }
@@ -48,7 +49,8 @@ export function tokenGetter() {
     RegistryComponent,
     TestLitComponent,
     InitialsPipe,
-    RegistryComponent
+    RegistryComponent,
+    RegistryDialogComponent
   ],
   imports: [
     BrowserModule,

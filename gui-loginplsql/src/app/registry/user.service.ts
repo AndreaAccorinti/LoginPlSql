@@ -22,4 +22,13 @@ export class UserService {
         throw err;
       }));
   }
+
+  addUser(user: User): Observable<User> {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
+    return this.http.post<User>(`${this.baseUrl}add-user`, user, { headers })
+      .pipe(catchError(err => {
+        console.error('Error adding new user', err);
+        throw err;
+      }));
+  }
 }

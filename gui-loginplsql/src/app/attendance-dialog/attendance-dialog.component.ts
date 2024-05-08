@@ -9,15 +9,9 @@ import {
 import {
   startOfDay,
   endOfDay,
-  subDays,
   addDays,
-  endOfMonth,
   isSameDay,
   isSameMonth,
-  addHours,
-  getTime,
-  setHours,
-  setMinutes,
   format,
 } from 'date-fns';
 import { Subject } from 'rxjs';
@@ -28,13 +22,11 @@ import {
   CalendarEventTimesChangedEvent,
   CalendarView,
 } from 'angular-calendar';
-import { EventColor } from 'calendar-utils';
 import { Attendance, CalendarEventForRange } from '../model/model';
 import { User } from '../assets/user';
 import { AttendanceService } from '../attendance/attendance.service';
-import { raggruppaGiorniDescizione } from '../assets/utils';
+import { raggruppaGiorniDescizione,setColor } from '../assets/utils';
 import { colors } from '../environments/environments';
-import { setColor } from '../assets/utils';
 
 
 @Component({
@@ -44,7 +36,7 @@ import { setColor } from '../assets/utils';
   templateUrl: './attendance-dialog.component.html',
 })
 export class AttendanceDialogComponent implements OnInit {
-  
+
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any> | null = null;
 
   view: CalendarView = CalendarView.Month;
@@ -88,7 +80,7 @@ export class AttendanceDialogComponent implements OnInit {
   selectedRange: [Date, Date] | null = null;
 
   constructor(
-    private modal: NgbModal, 
+    private modal: NgbModal,
     @Inject(NgbActiveModal) public activeModal: NgbActiveModal,
     private service: AttendanceService) {}
 
@@ -103,7 +95,7 @@ export class AttendanceDialogComponent implements OnInit {
     if(!!dateRange.from) {
       event.start = dateRange.from;
       event.end = dateRange.from;
-    } 
+    }
     if(!!dateRange.to) {
       event.end = dateRange.to;
     }
@@ -164,7 +156,7 @@ export class AttendanceDialogComponent implements OnInit {
         start_m: '09:00',
         end_m: '13:00',
         start_p: '14:00',
-        end_p: '18:00' 
+        end_p: '18:00'
       },
     ];
   }
@@ -194,7 +186,7 @@ export class AttendanceDialogComponent implements OnInit {
       this.events.forEach( (event) => {
         if (event.end != null && event.end != undefined) {
           for(let date: Date = event.start; date <= event.end; date = addDays(date, 1)) {
-            const attendance: Attendance = 
+            const attendance: Attendance =
               {
                 data: format(date, "yyyy-MM-dd'T'HH:mm:ss.SSSX"),
                 descrizione: event.title,
@@ -206,7 +198,7 @@ export class AttendanceDialogComponent implements OnInit {
               };
             if (!!event.id) {
               attendance.id = +event.id;
-            }   
+            }
             attendances = [ ...attendances, attendance];
           }
         }
@@ -220,7 +212,7 @@ export class AttendanceDialogComponent implements OnInit {
 
   getTimestampFromDateTime(date: Date, time: string|undefined): string {
     return format(date, "yyyy-MM-dd'T'") + time + ':00.000+01';
-    
+
   }
 
   setColor(event: CalendarEvent) {
