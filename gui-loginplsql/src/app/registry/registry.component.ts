@@ -40,4 +40,14 @@ export class RegistryComponent implements OnInit {
       this.ngOnInit()
     });
   }
+
+  openEditUserModal(user: User): void {
+    const modalRef = this.modalService.open(RegistryDialogComponent);
+    modalRef.componentInstance.user = user;
+    modalRef.result.then((result) => {
+      if (result) {
+        this.getTheUsers();
+      }
+    });
+  }
 }

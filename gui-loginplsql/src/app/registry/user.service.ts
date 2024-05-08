@@ -31,4 +31,13 @@ export class UserService {
         throw err;
       }));
   }
+
+  updateUser(user: User): Observable<User> {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
+    return this.http.put<User>(`${this.baseUrl}update-user/${user.id}`, user, { headers })
+      .pipe(catchError(err => {
+        console.error('Error updating user', err);
+        throw err;
+      }));
+  }
 }

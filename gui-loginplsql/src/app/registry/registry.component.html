@@ -1,3 +1,4 @@
+<!-- src/app/components/registry.component.html -->
 <div class="card">
   <div class="card-body pb-0">
     <div class="row">
@@ -6,66 +7,39 @@
       </div>
       <div class="col-lg-2 col-md-4 col-sm-6">
         <div class="container container-icon">
-          <i (click)="openNewUserModal()" (keydown)="openNewUserModal()"
-             class="bi bi-plus-circle-fill icon-margin icon-plus"></i>
+          <i (click)="openNewUserModal()"  (keydown)="openNewUserModal()" class="bi bi-plus-circle-fill icon-margin icon-plus"></i>
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <div class="table-responsive">
-          <table class="table">
-            <thead class="thead-dark">
-            <tr>
-              <th>Username</th>
-              <th>Name</th>
-              <th>Surname</th>
-              <th>Email</th>
-              <th>Telephone</th>
-              <th>Role</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let user of users">
-              <td>{{ user.username }}</td>
-              <td>{{ user.name }}</td>
-              <td>{{ user.surname }}</td>
-              <td>{{ user.email }}</td>
-              <td>{{ user.telephone }}</td>
-              <td>{{ user.role }}</td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="table-responsive">
+        <table class="table">
+          <thead class="thead-dark">
+          <tr>
+            <th>Username</th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Email</th>
+            <th>Telephone</th>
+            <th>Role</th>
+            <th>Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let user of users">
+            <td>{{ user.username }}</td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.surname }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.telephone }}</td>
+            <td>{{ user.role }}</td>
+            <td>
+              <button (click)="openEditUserModal(user)" class="btn btn-sm btn-primary">Edit</button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
 </div>
-
-<!-- Modal -->
-<dialog class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="userModalLabel">New User</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <!-- Add form for new user input here -->
-        <form>
-          <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" class="form-control" id="username">
-          </div>
-          <!-- Additional fields as needed -->
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save User</button>
-      </div>
-    </div>
-  </div>
-</dialog>
