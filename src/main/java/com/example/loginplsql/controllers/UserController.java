@@ -1,5 +1,6 @@
 package com.example.loginplsql.controllers;
 
+import com.example.loginplsql.daos.PresenzaRepository;
 import com.example.loginplsql.models.LoginResponse;
 import com.example.loginplsql.models.User;
 import com.example.loginplsql.services.UserServiceImpl;
@@ -19,12 +20,25 @@ public class UserController {
         this.userService = userService;
     }
 
+    @Autowired
+    PresenzaRepository daoAttendance;
+
     @GetMapping("/users_list")
     public ResponseEntity<List<User>> getAllUsers(@RequestHeader LoginResponse response) {
         if (userService.verifyUserAndToken(response.getResponse())) {
             return ResponseEntity.ok(userService.findAllUsers());
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+    }
+
+    @GetMapping("/test")
+    public int test() {
+        return this.daoAttendance.getTotalDays("2024-05-01", "2024-05", "2024-05-");
+    }
+
+    @GetMapping("/test-day")
+    public int testDay() {
+        return this.daoAttendance.getTotDayAttendanceFromUserDescription(1, "Lavoro", 5);
     }
 
     @PostMapping("/add-user")
