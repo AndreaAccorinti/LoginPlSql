@@ -1,7 +1,16 @@
+.modal-dialog {
+  margin: 1.75rem auto;
+  max-width: 400px;
+}
+
 .modal-header, .modal-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.modal-footer {
+  justify-content: end;
 }
 
 .modal-body {
@@ -14,4 +23,29 @@
 
 .input-group {
   margin-bottom: 1rem;
+}
+
+.input-group-prepend {
+  margin-right: -1px;
+}
+
+.input-group-text {
+  background-color: #eee;
+  border: 1px solid #ccc;
+  color: #333;
+}
+
+.input-group-text i {
+  font-size: 1.4rem;
+}
+
+
+.close {
+  border: none;
+  background: none;
+  color: #000;
+  opacity: 0.5;
+  &:hover {
+    opacity: 0.75;
+  }
 }

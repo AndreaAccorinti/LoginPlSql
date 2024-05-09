@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {UserService} from "./user.service";
 import {User} from "../assets/user";
 import {NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
@@ -19,6 +19,21 @@ export class RegistryComponent implements OnInit {
 
   ngOnInit() {
     this.getTheUsers();
+  }
+
+  @HostListener('scroll', ['$event'])
+  onScroll(event: Event) {
+    const container = event.target as HTMLElement;
+    const thead = document.getElementById('thead-x');
+    if (thead != null) {
+      if (container.scrollTop > 0) {
+        thead.classList.remove('thead-fix');
+        thead.classList.add('thead-sticky');
+      } else {
+        thead.classList.remove('thead-sticky');
+        thead.classList.add('thead-fix');
+      }
+    }
   }
 
 
@@ -49,5 +64,17 @@ export class RegistryComponent implements OnInit {
         this.getTheUsers();
       }
     });
+  }
+
+  deleteUser(userId: string) {
+    if (confirm('Are you sure you want to delete this user?')) {
+      this.userService.deleteUser(userId).subscribe({
+        next: () => {
+          alert('User deleted successfully');
+          this.getTheUsers(); // Refresh the list after deletion
+        },
+        error: (error) => console.error('Error deleting user', error)
+      });
+    }
   }
 }

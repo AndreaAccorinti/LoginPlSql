@@ -22,6 +22,7 @@ public class UserServiceImpl {
     private String token;
     private boolean isLogged;
 
+
     /**
      * Authenticate a user and generate a JWT token.
      *
@@ -124,7 +125,18 @@ public class UserServiceImpl {
         user.setPassword(null); // Ensure password is not sent back
         return ResponseEntity.ok(new LoginResponse("Login successful", getToken(), user));
     }
-
+    /**
+     * Verifies whether the user is currently logged in and if the provided token is valid.
+     * This method combines checks for both the logged-in state and token validity to ensure
+     * that the user session is both authenticated and authorized to perform operations.
+     *
+     * @param token The token to be validated against the stored token.
+     * @return {@code true} if the user is logged in and the token matches the stored token;
+     *         {@code false} otherwise.
+     */
+    public boolean verifyUserAndToken(String token) {
+        return isLogged() && checkToken(token);
+    }
     public void setToken(String token) {
         this.token = token;
     }
