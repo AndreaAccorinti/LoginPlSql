@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {User} from "../assets/user";
-import {UserService} from "../registry/user.service";
+import {User} from "../model/user";
+import {UserService} from "../assets/service/user.service";
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { catchError, Observable } from "rxjs";
-import { User } from "../assets/user";
-import { environments } from "../environments/environments";
+import { User } from "../../model/user";
+import { environments } from "../../environments/environments";
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   private get headers(): HttpHeaders {
-    const token = localStorage.getItem('access_token') || '';
+    const token = localStorage.getItem('access_token') ?? '';
     return new HttpHeaders().set('response', token);
   }
 

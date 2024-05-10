@@ -7,6 +7,11 @@ export class User {
     public surname: string = "",
     public email: string = "",
     public telephone: string = "",
-    public role: string = ""
+    public role: string = "",
+    public monthlyWorkdays?: string,
+    public vacationDays?: string,
+    public sickLeaveDays?: string,
+    public workdays?: string,
+    public status?: string
   ) {}
 }

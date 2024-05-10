@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {environments} from "./environments/environments";
 import {catchError, Observable, tap} from "rxjs";
-import {User} from "./assets/user";
+import {User} from "./model/user";
 import {HttpResponseToken} from "./environments/HttpResponseToken";
 import { UserSessionService } from './session/user-session.service';
 

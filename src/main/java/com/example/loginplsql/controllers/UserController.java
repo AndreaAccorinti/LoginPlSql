@@ -61,7 +61,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
-    @GetMapping("/check-user-monthly-status")
+    @PostMapping("/check-user-monthly-status")
     public ResponseEntity<Boolean> checkUserMonthlyStatus(
             @RequestParam("userId") int userId,
             @RequestParam("yearMonth") String yearMonth,

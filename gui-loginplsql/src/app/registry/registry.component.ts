@@ -1,6 +1,6 @@
 import {Component, HostListener, OnInit} from '@angular/core';
-import {UserService} from "./user.service";
-import {User} from "../assets/user";
+import {UserService} from "../assets/service/user.service";
+import {User} from "../model/user";
 import {NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
 import {RegistryDialogComponent} from "../registry-dialog/registry-dialog.component";
 

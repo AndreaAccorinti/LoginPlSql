@@ -23,7 +23,7 @@ import {
   CalendarView,
 } from 'angular-calendar';
 import { Attendance, CalendarEventForRange } from '../model/model';
-import { User } from '../assets/user';
+import { User } from '../model/user';
 import { AttendanceService } from '../attendance/attendance.service';
 import { raggruppaGiorniDescizione,setColor } from '../assets/utils';
 import { colors } from '../environments/environments';
