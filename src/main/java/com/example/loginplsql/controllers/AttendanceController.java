@@ -37,7 +37,7 @@ public class AttendanceController {
     ResponseEntity<AttendanceResponse> getAttendanceFromSysTmp(@RequestHeader LoginResponse headers) {
         AttendanceResponse attendanceResponse = new AttendanceResponse();
         if (userService.isLogged() && userService.checkToken(headers.getResponse())) {
-            attendanceResponse.setAttendanceList(this.daoAttendance.getSysTimestampMounth());
+            attendanceResponse.setAttendanceList(this.daoAttendance.getSysTimestampMonth());
             attendanceResponse.setResponse("OK");
             return ResponseEntity.ok(attendanceResponse);
         }
@@ -49,7 +49,7 @@ public class AttendanceController {
     ResponseEntity<AttendanceResponse> getAttendanceFromMonth(@RequestHeader LoginResponse response,@RequestBody String month) {
         AttendanceResponse attendanceResponse = new AttendanceResponse();
         if (userService.isLogged() && userService.checkToken(response.getResponse())) {
-            attendanceResponse.setAttendanceList(this.daoAttendance.getSysTimestampMounth());
+            attendanceResponse.setAttendanceList(this.daoAttendance.getSysTimestampMonth());
             attendanceResponse.setResponse("OK");
             return ResponseEntity.ok(attendanceResponse);
         }

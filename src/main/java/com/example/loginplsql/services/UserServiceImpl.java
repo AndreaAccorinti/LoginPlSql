@@ -6,7 +6,6 @@ import com.example.loginplsql.models.LoginResponse;
 import com.example.loginplsql.models.User;
 import io.jsonwebtoken.Jwts;
 import org.jvnet.hk2.annotations.Service;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -17,8 +16,13 @@ import java.util.UUID;
 
 @Service
 public class UserServiceImpl {
-    @Autowired
-    private UserRepository daoUser;
+
+    private final UserRepository daoUser;
+
+    public UserServiceImpl(UserRepository daoUser) {
+        this.daoUser = daoUser;
+    }
+
     private String token;
     private boolean isLogged;
 
@@ -125,6 +129,7 @@ public class UserServiceImpl {
         user.setPassword(null); // Ensure password is not sent back
         return ResponseEntity.ok(new LoginResponse("Login successful", getToken(), user));
     }
+
     /**
      * Verifies whether the user is currently logged in and if the provided token is valid.
      * This method combines checks for both the logged-in state and token validity to ensure
@@ -132,11 +137,12 @@ public class UserServiceImpl {
      *
      * @param token The token to be validated against the stored token.
      * @return {@code true} if the user is logged in and the token matches the stored token;
-     *         {@code false} otherwise.
+     * {@code false} otherwise.
      */
     public boolean verifyUserAndToken(String token) {
         return isLogged() && checkToken(token);
     }
+
     public void setToken(String token) {
         this.token = token;
     }

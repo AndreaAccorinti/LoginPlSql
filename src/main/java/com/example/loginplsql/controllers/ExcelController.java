@@ -26,7 +26,7 @@ public class ExcelController {
     void writeExcel() {
         List<Presenza> listPresenza = null;
         try {
-            listPresenza = daoPresenza.getSysTimestampMounth();
+            listPresenza = daoPresenza.getSysTimestampMonth();
 
         }catch (Exception e) {
             log.info("Fallito getSysTimestampMounth");

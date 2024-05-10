@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -30,7 +29,7 @@ public class PdfController {
     public ResponseEntity<String> generatePdf() throws Exception {
         String fileName = "my_table_data.pdf";
         try {
-            List<Presenza> attendances = daoAttendance.getSysTimestampMounth();
+            List<Presenza> attendances = daoAttendance.getSysTimestampMonth();
             pdfGeneratorService.generatePdf(attendances, fileName);
             return ResponseEntity.ok("PDF generated successfully!");
         } catch ( Exception e ) {
