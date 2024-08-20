@@ -23,6 +23,8 @@ public final class Utils {
     private static final String ENTRY_P = "/entry_p";
     private static final String EXIT_P = "/exit_p";
 
+    public static final String CORSURL = "http://deploy-ang.s3-website.eu-west-3.amazonaws.com";
+
     private final static Logger log = LoggerFactory.getLogger(TelegramBot.class);
     public static Timestamp getNowDate() {
         Date date = new Date();

@@ -1,4 +1,5 @@
 package com.example.loginplsql.controllers;
+import com.example.loginplsql.Utils.Utils;
 import com.example.loginplsql.daos.ExcelRepository;
 import com.example.loginplsql.daos.PresenzaRepository;
 import com.example.loginplsql.models.Presenza;
@@ -6,6 +7,7 @@ import com.example.loginplsql.services.ExcelService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,7 +16,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/excel")
+@RequestMapping("/api/excel")
 public class ExcelController {
     @Autowired
     ExcelRepository daoExcel;
@@ -22,6 +24,7 @@ public class ExcelController {
     @Autowired
     PresenzaRepository daoPresenza;
     Logger log = LoggerFactory.getLogger(ExcelController.class);
+    @CrossOrigin(origins = Utils.CORSURL)
     @GetMapping("/test-excel")
     void writeExcel() {
         List<Presenza> listPresenza = null;

@@ -12,11 +12,11 @@ export class AttendanceService {
   private token = localStorage.getItem('access_token')
   constructor(private http: HttpClient) {}
 
-  getAttendanceForSys(): Observable<any> {
+  getAttendanceForSys(request: any): Observable<any> {
 
     if (this.token != null) {
       const header = new HttpHeaders().set('headers', this.token)
-      return this.http.post(this.baseUrl+'attendance_list_systmp', {}, {headers: header})
+      return this.http.post(this.baseUrl+'presenze', request, {headers: header})
         .pipe(catchError(err => {return err;}));
     }
     return new Observable<any>();

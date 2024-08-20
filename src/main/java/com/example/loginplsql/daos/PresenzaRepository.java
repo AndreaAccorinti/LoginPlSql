@@ -14,6 +14,12 @@ public interface PresenzaRepository extends JpaRepository<Presenza, Integer> {
     String GET_SYS_TIMESTAMP_MONTH =
             "select * from attendance where monthname(curdate()) like monthname(date_attendance) order by date_attendance";
 
+    String GET_PRESENZE_BY_ANNO_MESE_USER =
+            "SELECT * FROM attendance " +
+                    "WHERE id_user = :user AND " +
+                    "YEAR(date_attendance) = :anno AND " +
+                    "MONTH(date_attendance) = :mese";
+
     String GET_TOTAL_MONTHLY_WORKING_DAYS =
             "WITH RECURSIVE Date_Ranges AS (" +
                     "SELECT DATE_FORMAT(:data, '%Y-%m-01') as date_ " +
@@ -52,4 +58,7 @@ public interface PresenzaRepository extends JpaRepository<Presenza, Integer> {
 
     @Query(value = GET_TOT_DAY_ATTENDANCE_FROM_USER, nativeQuery = true)
     int getTotDayAttendanceFromUser(int idUser, int mese);
+
+    @Query(value = GET_PRESENZE_BY_ANNO_MESE_USER, nativeQuery = true)
+    List<Presenza> findByUserAndMonthAndYear(int user, int anno, int mese);
 }
