@@ -1,5 +1,5 @@
 # Fase 1: Costruzione
-FROM maven:3.8.6-openjdk-21-slim AS build
+FROM maven:3.9.4-eclipse-temurin-21 AS build
 
 # Imposta la directory di lavoro
 WORKDIR /app
@@ -15,7 +15,7 @@ COPY . .
 RUN mvn clean package -Pprod -DskipTests
 
 # Fase 2: Immagine Finale
-FROM openjdk:21-jdk-slim
+FROM eclipse-temurin:21-jdk-alpine
 
 # Espone la porta 8080
 EXPOSE 8080
